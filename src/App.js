@@ -5,12 +5,13 @@ import Tasks from './Tasks'
 import Gallery from './Gallery'
 
 const App = () => {
-  const [ userQuery, setUserQuery ] = useState()
+  const [ userQuery, setUserQuery ] = useState('')
+  const [ showGallery, setShowGallery ] = useState(true)
 
   const updateUserQuery = event => {
-    console.log('userQuery', userQuery)
     setUserQuery(event.target.value)
   }
+  
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
       searchQuery()
@@ -19,6 +20,10 @@ const App = () => {
 
   const searchQuery = () => {
     window.open(`https://google.com/search?q=${ userQuery }`, '_blank')
+  }
+
+  const toggleShowGallery = () => {
+    setShowGallery(!showGallery)
   }
 
   return (
@@ -33,7 +38,12 @@ const App = () => {
       <hr />
       <Tasks />
       <hr />
-      <Gallery />
+      {
+        showGallery ?   <Gallery /> : null
+      }
+      <button onClick={ toggleShowGallery }>
+        { showGallery ? 'Hide' : 'Show' } Gallery
+      </button>
       <hr />
       <Stories />
     </div>
